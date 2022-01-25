@@ -58,8 +58,8 @@ export default function Parent() {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-                <Grid item xs={6}>
-                    <Card sx={{ minWidth: 275 }} style={{ marginTop: "10px", backgroundColor: "aliceblue" }}>
+                <Grid item xs={12} md={6}>
+                    <Card  style={{ marginTop: "10px", backgroundColor: "aliceblue" }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 16, fontWeight: "bold" }} style={{ color: "black" }} gutterBottom>
                                 {`Total Amount`}
@@ -68,8 +68,8 @@ export default function Parent() {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
-                    <Card sx={{ minWidth: 275 }} style={{ marginTop: "10px", backgroundColor: "antiquewhite" }}>
+                <Grid item xs={12} md={6}>
+                    <Card style={{ marginTop: "10px", backgroundColor: "antiquewhite" }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 16, fontWeight: "bold" }} style={{ color: "black" }} gutterBottom>
                                 {`Calculate Fare`}
