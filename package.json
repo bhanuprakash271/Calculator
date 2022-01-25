@@ -1,5 +1,6 @@
 {
-  "name": "my-app",
+  "homepage": "https://bhanuprakash264271.github.io/Calculator",
+  "name": "Calculator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,17 +11,14 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "chart.js": "^3.7.0",
-    "file-saver": "^2.0.5",
     "react": "^17.0.2",
-    "react-chartjs-2": "^4.0.0",
-    "react-d3-library": "^1.1.8",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
-    "react-scripts": "^3.4.4",
-    "web-vitals": "^1.1.2"
+    "react-scripts": "^3.4.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }
