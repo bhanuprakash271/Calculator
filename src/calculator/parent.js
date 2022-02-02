@@ -23,7 +23,7 @@ export default function Parent() {
     const [priceList, setPriceList] = React.useState([]);
     const [amountList, setAmountList] = React.useState({
         Rajeev: 0.00,
-        Nandhan: 0.00,
+        Nandan: 0.00,
         Shreyas: 0.00,
         Tirth: 0.00,
         Bhanu: 0.00,

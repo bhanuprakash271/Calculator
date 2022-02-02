@@ -12,7 +12,7 @@ import InputLabel from '@mui/material/InputLabel';
 export default function NameList(props) {
   const [nameList, setNameList] = React.useState({
     Rajeev: false,
-    Nandhan: false,
+    Nandan: false,
     Shreyas: false,
     Tirth: false,
     Bhanu: false,
@@ -46,7 +46,7 @@ export default function NameList(props) {
   const handleCalculation = (doneValue) => {
     let obj = {
       Rajeev: 0.00,
-      Nandhan: 0.00,
+      Nandan: 0.00,
       Shreyas: 0.00,
       Tirth: 0.00,
       Bhanu: 0.00,
@@ -117,8 +117,8 @@ export default function NameList(props) {
           </FormControl>
         </Grid>
       </Grid>
-      {!isDone && props.lastValue ? <Button variant="outlined" style={{ backgroundColor: "lightblue", marginRight: "10px", color: "white" }} onClick={() => { handleCalculation(false) }}>Add</Button> : null}
-      {props.lastValue && !isDone ? <Button variant="outlined" style={{ backgroundColor: "green", marginRight: "10px", color: "white" }} onClick={() => { handleDone() }}>Done</Button> : null}
+      {!isDone && props.lastValue ? <Button variant="outlined" style={{ backgroundColor: "green", marginRight: "10px", color: "white" }} onClick={() => { handleCalculation(false) }}>Add</Button> : null}
+      {props.lastValue && !isDone ? <Button variant="outlined" style={{ backgroundColor: "lightblue", marginRight: "10px", color: "white" }} onClick={() => { handleDone() }}>Done</Button> : null}
       {props.lastValue && isDone && isCompute ? <Button variant="outlined" style={{ backgroundColor: "blue", marginRight: "10px", color: "white" }} onClick={() => { handleCompute() }}>Compute</Button> : null}
     </React.Fragment>
   );
