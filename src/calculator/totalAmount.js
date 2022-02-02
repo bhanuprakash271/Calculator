@@ -1,19 +1,16 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import FormLabel from '@mui/material/FormLabel';
+import React from 'react';
 import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import Checkbox from '@mui/material/Checkbox';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import PieChart from './pieChart';
+
 
 export default function TotalAmount(props) {
     return (
         <React.Fragment>
-
             {Object.keys(props.amountData).map(function (key) {
                 return (<Grid container spacing={2} style={{ paddingTop: "20px" }}>
                     <Grid item xs={3}>
@@ -22,10 +19,22 @@ export default function TotalAmount(props) {
                         </Typography>
                     </Grid>
                     <Grid item xs={9}>
-                        <TextField id={key} label="Amount" variant="outlined" value={Math.round(props.amountData[key] * 100) / 100} disabled />
+                        <FormControl fsx={{ m: 1, width: '25ch' }} >
+                            <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+                            <OutlinedInput
+                                id={key}
+                                value={Math.round(props.amountData[key] * 100) / 100}
+                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                                label="Amount"
+                                disabled
+                            />
+                        </FormControl>
                     </Grid>
                 </Grid>)
             })}
+            <div style={{ marginTop: "50px" }}>
+                <PieChart data={props.amountData} />
+            </div>
         </React.Fragment>
     );
 }

@@ -1,14 +1,10 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import FormLabel from '@mui/material/FormLabel';
+import React from 'react';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
@@ -107,9 +103,7 @@ export default function NameList(props) {
         </Grid>
         <Grid item xs={12}>
           <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-            {/* <FormLabel component="legend">Total</FormLabel> */}
             <FormGroup aria-label="position" row>
-
               {Object.keys(nameList).map(function (key) {
                 return (<FormControlLabel
                   control={
@@ -120,7 +114,6 @@ export default function NameList(props) {
                 />)
               })}
             </FormGroup>
-            {/* <FormHelperText>Be careful</FormHelperText> */}
           </FormControl>
         </Grid>
       </Grid>

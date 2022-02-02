@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -8,8 +8,7 @@ import NameList from './nameList';
 import TotalAmount from './totalAmount';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -50,6 +49,8 @@ export default function Parent() {
             })
         })
         setAmountList(dummyData);
+        var elmnt = document.getElementById('card');
+        elmnt.scrollIntoView();
     }
 
 
@@ -59,7 +60,7 @@ export default function Parent() {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
-                    <Card  style={{ marginTop: "10px", backgroundColor: "aliceblue" }}>
+                    <Card style={{ margin: "10px", backgroundColor: "aliceblue" }} id="card">
                         <CardContent>
                             <Typography sx={{ fontSize: 16, fontWeight: "bold" }} style={{ color: "black" }} gutterBottom>
                                 {`Total Amount`}
@@ -69,7 +70,7 @@ export default function Parent() {
                     </Card>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Card style={{ marginTop: "10px", backgroundColor: "antiquewhite" }}>
+                    <Card style={{ margin: "10px", backgroundColor: "antiquewhite" }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 16, fontWeight: "bold" }} style={{ color: "black" }} gutterBottom>
                                 {`Calculate Fare`}
