@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -8,32 +8,37 @@ import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
+import { booleanNames, amountNames } from './constants';
 
 export default function NameList(props) {
-  const [nameList, setNameList] = React.useState({
-    Rajeev: false,
-    Nandan: false,
-    Shreyas: false,
-    Tirth: false,
-    Bhanu: false,
-  });
+  const [nameList, setNameList] = React.useState({ ...booleanNames });
 
   const [name, setName] = React.useState('');
   const [price, setPrice] = React.useState(null);
-  const [isDone, setIsDone] = React.useState(false);
-  const [isCompute, setIsCompute] = React.useState(true);
+
 
   const handleName = (event) => {
     setName(event.target.value);
   };
 
+
+  useEffect(() => {
+    if (!props.lastValue) {
+      handleCalculation(false);
+    }
+  }, [price, nameList])
+
   const handlePrice = (event) => {
     setPrice(event.target.value);
+    // if (!props.lastValue) {
+    //   handleCalculation(false);
+    // }
   };
 
   const handleDone = () => {
-    setIsDone(true);
+    //setIsDone(true);
     handleCalculation(true);
+    props.handleDone(true);
   };
 
   const handleChange = (event) => {
@@ -41,38 +46,41 @@ export default function NameList(props) {
       ...nameList,
       [event.target.name]: event.target.checked,
     });
+    // if (!props.lastValue) {
+    //   handleCalculation(false);
+    // }
   };
 
   const handleCalculation = (doneValue) => {
-    let obj = {
-      Rajeev: 0.00,
-      Nandan: 0.00,
-      Shreyas: 0.00,
-      Tirth: 0.00,
-      Bhanu: 0.00,
-    }
+    let obj = { ...amountNames };
     if (price !== 0) {
       let count = 0;
-      Object.keys(nameList).forEach(item => {
-        if (nameList[item] == true) {
-          count = count + 1;
-        }
-      })
+      if (nameList['All'] == true) {
+        count = Object.keys(nameList).length - 1;
+      } else {
+        Object.keys(nameList).forEach(item => {
+          if (nameList[item] == true) {
+            count = count + 1;
+          }
+        })
+      }
       let pricePerPerson = price / count;
       Object.keys(nameList).forEach(item => {
-        if (nameList[item] == true) {
+        if (item != 'All' && (nameList[item] == true || nameList['All'] == true)) {
           obj[item] = obj[item] + pricePerPerson;
         }
       })
-      props.handleAdd(obj, doneValue);
+      props.handleAdd(obj, doneValue, props.indexValue);
     }
   }
 
   const handleCompute = () => {
-    setIsCompute(false);
     props.handleAmountChange();
   }
 
+  const handleEdit = () => {
+    props.handleDone(false);
+  }
 
   return (
     <React.Fragment>
@@ -86,7 +94,7 @@ export default function NameList(props) {
               onChange={handleName}
               variant="standard"
               style={{ marginRight: "20px" }}
-              disabled={!props.lastValue || isDone}
+              disabled={props.isDone}
             /></FormControl>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
             <InputLabel htmlFor="standard-adornment-password">Price</InputLabel>
@@ -97,7 +105,7 @@ export default function NameList(props) {
               onChange={handlePrice}
               variant="standard"
               startAdornment={<InputAdornment position="start">$</InputAdornment>}
-              disabled={!props.lastValue || isDone}
+              disabled={props.isDone}
             />
           </FormControl>
         </Grid>
@@ -107,7 +115,7 @@ export default function NameList(props) {
               {Object.keys(nameList).map(function (key) {
                 return (<FormControlLabel
                   control={
-                    <Checkbox checked={nameList[key]} onChange={handleChange} name={key} disabled={!props.lastValue || isDone} />
+                    <Checkbox checked={nameList[key]} onChange={handleChange} name={key} disabled={props.isDone || (nameList['All'] == true && key != 'All')} />
                   }
                   label={key}
                   labelPlacement="bottom"
@@ -117,9 +125,10 @@ export default function NameList(props) {
           </FormControl>
         </Grid>
       </Grid>
-      {!isDone && props.lastValue ? <Button variant="outlined" style={{ backgroundColor: "green", marginRight: "10px", color: "white" }} onClick={() => { handleCalculation(false) }}>Add</Button> : null}
-      {props.lastValue && !isDone ? <Button variant="outlined" style={{ backgroundColor: "lightblue", marginRight: "10px", color: "white" }} onClick={() => { handleDone() }}>Done</Button> : null}
-      {props.lastValue && isDone && isCompute ? <Button variant="outlined" style={{ backgroundColor: "blue", marginRight: "10px", color: "white" }} onClick={() => { handleCompute() }}>Compute</Button> : null}
+      {!props.isDone && props.lastValue ? <Button variant="outlined" style={{ backgroundColor: "green", marginRight: "10px", color: "white" }} onClick={() => { handleCalculation(false) }}>Add</Button> : null}
+      {props.lastValue && !props.isDone ? <Button variant="outlined" style={{ backgroundColor: "lightblue", marginRight: "10px", color: "white" }} onClick={() => { handleDone() }}>Done</Button> : null}
+      {props.lastValue && props.isDone && !props.isCompute ? <Button variant="outlined" style={{ backgroundColor: "green", marginRight: "10px", color: "white" }} onClick={() => { handleCompute() }}>Compute</Button> : null}
+      {props.lastValue && props.isDone && !props.isCompute ? <Button variant="outlined" style={{ backgroundColor: "lightblue", marginRight: "10px", color: "white" }} onClick={() => { handleEdit() }}>Edit</Button> : null}
     </React.Fragment>
   );
 }
