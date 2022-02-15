@@ -25,23 +25,27 @@ export default function Parent() {
     const [amountList, setAmountList] = React.useState({ ...amountNames });
     const [done, setDone] = React.useState(false);
     const [compute, setCompute] = React.useState(false);
+    const [edit, setEdit] = React.useState(false);
 
     const handleDone = (value) => {
+        if (value == false) {
+            setEdit(true);
+        }
         setDone(value);
     }
 
-    const handlePrice = (value, isDone, index) => {
+    const handlePrice = (value, isDone, isAdd, index) => {
         let dummyList = [...priceList];
         if (dummyList.length > index) {
             dummyList[index] = value;
         } else {
             dummyList.push(value);
-            if (!isDone) {
-                let dummyCountList = [...countList]
-                let newValue = dummyCountList.length + 1;
-                dummyCountList.push(newValue);
-                setCountList(dummyCountList);
-            }
+        }
+        if (isAdd && !isDone) {
+            let dummyCountList = [...countList]
+            let newValue = dummyCountList.length + 1;
+            dummyCountList.push(newValue);
+            setCountList(dummyCountList);
         }
         setPriceList(dummyList);
     }

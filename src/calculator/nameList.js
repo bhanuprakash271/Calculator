@@ -24,20 +24,16 @@ export default function NameList(props) {
 
   useEffect(() => {
     if (!props.lastValue) {
-      handleCalculation(false);
+      handleCalculation(false, false);
     }
   }, [price, nameList])
 
   const handlePrice = (event) => {
     setPrice(event.target.value);
-    // if (!props.lastValue) {
-    //   handleCalculation(false);
-    // }
   };
 
   const handleDone = () => {
-    //setIsDone(true);
-    handleCalculation(true);
+    handleCalculation(true, false);
     props.handleDone(true);
   };
 
@@ -46,12 +42,9 @@ export default function NameList(props) {
       ...nameList,
       [event.target.name]: event.target.checked,
     });
-    // if (!props.lastValue) {
-    //   handleCalculation(false);
-    // }
   };
 
-  const handleCalculation = (doneValue) => {
+  const handleCalculation = (doneValue, addClick) => {
     let obj = { ...amountNames };
     if (price !== 0) {
       let count = 0;
@@ -70,7 +63,7 @@ export default function NameList(props) {
           obj[item] = obj[item] + pricePerPerson;
         }
       })
-      props.handleAdd(obj, doneValue, props.indexValue);
+      props.handleAdd(obj, doneValue, addClick, props.indexValue);
     }
   }
 
@@ -102,6 +95,7 @@ export default function NameList(props) {
               id="outlined-uncontrolled"
               label="Price"
               value={price}
+              type={"number"}
               onChange={handlePrice}
               variant="standard"
               startAdornment={<InputAdornment position="start">$</InputAdornment>}
@@ -125,7 +119,7 @@ export default function NameList(props) {
           </FormControl>
         </Grid>
       </Grid>
-      {!props.isDone && props.lastValue ? <Button variant="outlined" style={{ backgroundColor: "green", marginRight: "10px", color: "white" }} onClick={() => { handleCalculation(false) }}>Add</Button> : null}
+      {!props.isDone && props.lastValue ? <Button variant="outlined" style={{ backgroundColor: "green", marginRight: "10px", color: "white" }} onClick={() => { handleCalculation(false, true) }}>Add</Button> : null}
       {props.lastValue && !props.isDone ? <Button variant="outlined" style={{ backgroundColor: "lightblue", marginRight: "10px", color: "white" }} onClick={() => { handleDone() }}>Done</Button> : null}
       {props.lastValue && props.isDone && !props.isCompute ? <Button variant="outlined" style={{ backgroundColor: "green", marginRight: "10px", color: "white" }} onClick={() => { handleCompute() }}>Compute</Button> : null}
       {props.lastValue && props.isDone && !props.isCompute ? <Button variant="outlined" style={{ backgroundColor: "lightblue", marginRight: "10px", color: "white" }} onClick={() => { handleEdit() }}>Edit</Button> : null}
