@@ -6,6 +6,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import PieChart from './pieChart';
+import BarChart from './barChart';
 
 
 export default function TotalAmount(props) {
@@ -32,8 +33,11 @@ export default function TotalAmount(props) {
                     </Grid>
                 </Grid>)
             })}
-            <div style={{ marginTop: "50px" }}>
+            {/* <div style={{ marginTop: "50px" }}>
                 <PieChart data={props.amountData} />
+            </div> */}
+            <div style={{ marginTop: "50px" }}>
+                <BarChart data={props.amountData} />
             </div>
         </React.Fragment>
     );
