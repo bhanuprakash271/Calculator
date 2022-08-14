@@ -3,10 +3,12 @@ import jsPDF from "jspdf";
 import Button from "@mui/material/Button";
 import autoTable from "jspdf-autotable";
 import DownloadIcon from "@mui/icons-material/Download";
+import PDFName from "./pdfName";
 
 export default function Report(props) {
   const [amountList, setAmountList] = React.useState([]);
   const [itemList, setItemList] = React.useState([]);
+  const [openDialog, setOpenDialog] = React.useState(false);
 
   // to get the date
   let today = new Date();
@@ -38,11 +40,21 @@ export default function Report(props) {
     });
   }, []);
 
-  const Report = () => {
+  const handleDialogOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
+
+  // to handle the report download
+  const Report = (pdfText) => {
+    handleDialogClose();
     const doc = new jsPDF("l", "mm", [297, 210]);
 
     doc.setFontSize(18);
-    doc.text("This PDF is generated on " + today, 14, 20);
+    doc.text(pdfText, 14, 20);
     doc.setTextColor(100);
 
     doc.setFontSize(18);
@@ -69,6 +81,12 @@ export default function Report(props) {
       startY: alignOne + 5,
     });
 
+    let alignTwo = doc.lastAutoTable.finalY + 15;
+
+    doc.setFontSize(10);
+    doc.text(`This PDF is generated on ` + today, 200, alignTwo);
+    doc.setTextColor(100);
+
     doc.save("Expenses_" + today + "_.pdf");
   };
 
@@ -78,12 +96,17 @@ export default function Report(props) {
         variant="outlined"
         style={{ backgroundColor: "green", color: "white" }}
         onClick={() => {
-          Report();
+          handleDialogOpen();
         }}
         endIcon={<DownloadIcon />}
       >
         Report
       </Button>
+      <PDFName
+        open={openDialog}
+        handleDialogClose={handleDialogClose}
+        handleReport={Report}
+      />
     </div>
   );
 }

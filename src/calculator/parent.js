@@ -8,7 +8,7 @@ import CalculateFare from "./calculateFare";
 import TotalAmount from "./totalAmount";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { amountNames } from "./constants";
+import { getAmountNames } from "./constants";
 import Report from "./report";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -18,10 +18,10 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Parent() {
+export default function Parent(props) {
   const [countList, setCountList] = React.useState([0]);
   const [priceList, setPriceList] = React.useState([]);
-  const [amountList, setAmountList] = React.useState({ ...amountNames });
+  const [amountList, setAmountList] = React.useState({ ...getAmountNames(props.selectedApt) });
   const [done, setDone] = React.useState(false);
   const [compute, setCompute] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
@@ -134,6 +134,7 @@ export default function Parent() {
                     isCompute={compute}
                     handleDone={handleDone}
                     handleItemList={handleItemList}
+                    apt={props.selectedApt}
                   />
                 );
               })}

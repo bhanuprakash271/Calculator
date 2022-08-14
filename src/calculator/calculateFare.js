@@ -8,10 +8,10 @@ import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
-import { booleanNames, amountNames } from "./constants";
+import { getBooleanNames, getAmountNames } from "./constants";
 
 export default function CalculateFare(props) {
-  const [nameList, setNameList] = React.useState({ ...booleanNames });
+  const [nameList, setNameList] = React.useState({ ...getBooleanNames(props.apt) });
   const [name, setName] = React.useState("");
   const [price, setPrice] = React.useState(null);
 
@@ -48,7 +48,7 @@ export default function CalculateFare(props) {
 
   // to handle the calculation
   const handleCalculation = (doneValue, addClick) => {
-    let obj = { ...amountNames };
+    let obj = { ...getAmountNames(props.apt) };
     let purchasedByList = "";
     if (price !== 0) {
       let count = 0;

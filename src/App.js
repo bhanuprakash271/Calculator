@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import Parent from "./calculator/parent";
+import Apartment from "./calculator/apartment";
 
 
 function App() {
   return (
     <React.Fragment> 
-      <Parent />
+      <Apartment/>
     </React.Fragment>
   );
 }
